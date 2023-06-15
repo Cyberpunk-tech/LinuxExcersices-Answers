@@ -3,7 +3,7 @@ ANSWERS LINUXDOCUMENTATION GITHUB KAMKAR
 
 CHAPTER 2
 Create a file named my-file.txt with the touch command. Then execute the locate my-file.txt command. Do you find the file? 
-Touch my-file.txt – found the file 
+Touch my-file.txt – didn't found the file 
 Run the command sudo updatedb. And run the locate my-file.txt command again. Do you find your file ? 
 Updatedb – found the file
 With the command which, find the executable file nc and indicate the path 
